@@ -29,7 +29,7 @@ async function handler (req, res) {
   }
   const gist = await octokit.gists.get({ gist_id: GIST_ID })
   const emails = JSON.parse(gist.data.files['emails.json'].content)
-  if (email in emails) {
+  if (emails.indexOf(email) >= 0) {
     return res.json({ success: false })
   }
   emails.push(email)
