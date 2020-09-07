@@ -33,7 +33,6 @@ async function handler (req, res) {
     return res.json({ success: false })
   }
   emails.push(email)
-  console.log({email, emails})
   await octokit.gists.update({
     gist_id: GIST_ID,
     files: {
