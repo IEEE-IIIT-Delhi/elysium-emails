@@ -25,12 +25,12 @@ const allowCors = fn => async (req, res) => {
 async function handler (req, res) {
   const { email } = req.body
   if (!validate(email)) {
-    return res.end({ success: false })
+    return res.json({ success: false })
   }
   const gist = await octokit.gists.get({ gist_id: GIST_ID })
   const emails = JSON.parse(gist.data.files['emails.json'].content)
   if (email in emails) {
-    return res.end({ success: false })
+    return res.json({ success: false })
   }
   emails.push(email)
   console.log({email, emails})
@@ -42,7 +42,7 @@ async function handler (req, res) {
       }
     }
   })
-  return res.end({ success: true })
+  return res.json({ success: true })
 }
 
 module.exports = allowCors(handler)
